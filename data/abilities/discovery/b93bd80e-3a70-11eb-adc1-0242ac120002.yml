@@ -22,11 +22,9 @@
         payloads:
           - bacwi
         parsers:
-          - module: plugins.bacnet.app.parsers.data_set
-            parserconfigs:
-              - source: bacnet.device.instance
-                edge: found
-                target: bacnet.device.instance
+          - parserconfigs:
+            - source: bacnet.device.instance
+            module: plugins.bacnet.app.parsers.data_set
     windows:
       psh, cmd:
         timeout: 360
@@ -35,8 +33,6 @@
         payloads:
           - bacwi.exe
         parsers:
-          - module: plugins.bacnet.app.parsers.data_set
-            parserconfigs:
-              - source: bacnet.device.instance
-                edge: found
-                target: bacnet.device.instance
+          - parserconfigs:
+            - source: bacnet.device.instance
+            module: plugins.bacnet.app.parsers.data_set
