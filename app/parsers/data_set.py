@@ -4,27 +4,45 @@ from app.utility.base_parser import BaseParser
 import re
 
 
-WHOIS_TABLE_RE = re.compile(r'^\s*(\d+)\s+([0-9A-Fa-f:]+)')
+WHOIS_DEVICE_RE = re.compile(r"^\s*(\d+)\s+")
 
 
 class Parser(BaseParser):
     def parse(self, blob):
         relationships = []
-        for line in self.line(blob):
-            m = WHOIS_TABLE_RE.match(line.strip())
-            if not m:
+        for match in self.line(blob):
+            facts = self._parse_whois_response(match)
+            if not facts:
                 continue
-            
-            device_instance = m.group(1)
-            
+
             for mp in self.mappers:
-                source = self.set_value(mp.source, device_instance, self.used_facts)
-                target = self.set_value(mp.target, device_instance, self.used_facts)
+                source = facts.get(mp.source)
+                target = facts.get(mp.target)
+
+                if mp.edge and (source == None or target == None):
+                    continue
+
                 relationships.append(
                     Relationship(
                         source=Fact(mp.source, source),
                         edge=mp.edge,
-                        target=Fact(mp.target, target)
+                        target=Fact(mp.target, target),
                     )
                 )
         return relationships
+
+    @staticmethod
+    def _parse_whois_response(line):
+        facts = {}
+        if line.strip().startswith(';') or not line.strip():
+            return facts
+
+        m = WHOIS_DEVICE_RE.match(line.strip())
+        if not m:
+            return facts
+
+        device_instance = m.group(1)
+
+        facts["bacnet.device.instance"] = device_instance
+        
+        return facts
