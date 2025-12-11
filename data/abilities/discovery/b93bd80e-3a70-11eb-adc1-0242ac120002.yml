@@ -22,8 +22,7 @@
         payloads:
           - bacwi
         parsers:
-          - module: plugins.bacnet.app.parsers.data_set
-            parserconfigs:
+          plugins.bacnet.app.parsers.data_set:
             - source: bacnet.device.instance
     windows:
       psh, cmd:
@@ -33,6 +32,5 @@
         payloads:
           - bacwi.exe
         parsers:
-          - module: plugins.bacnet.app.parsers.data_set
-            parserconfigs:
+          plugins.bacnet.app.parsers.data_set:
             - source: bacnet.device.instance

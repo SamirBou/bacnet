@@ -22,13 +22,22 @@ class Parser(BaseParser):
                 if mp.edge and (source == None or target == None):
                     continue
 
-                relationships.append(
-                    Relationship(
-                        source=Fact(mp.source, source),
-                        edge=mp.edge,
-                        target=Fact(mp.target, target),
+                if not mp.edge:
+                    relationships.append(
+                        Relationship(
+                            source=Fact(mp.source, source),
+                            edge=None,
+                            target=Fact(mp.target, None),
+                        )
                     )
-                )
+                else:
+                    relationships.append(
+                        Relationship(
+                            source=Fact(mp.source, source),
+                            edge=mp.edge,
+                            target=Fact(mp.target, target),
+                        )
+                    )
         return relationships
 
     @staticmethod
