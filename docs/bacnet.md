@@ -199,7 +199,7 @@ __Facts:__
 | `bacnet.device.instance` | Device instance (also accepts IP:Port address of device) | int |
 | `bacnet.obj.type` | Type of the [object](#objects) to be read | int or string |
 | `bacnet.obj.instance` | The [instance number](#objects) of the object-type specified | int |
-| `bacnet.obj.property` | The [property](#properties) of the object to be read | int |
+| `bacnet.obj.property` | The [property](#properties) of the object to be read | int or string |
 | `bacnet.read.index` | How to handle reading arrays | int |
 
 Read Index Values:
@@ -296,10 +296,10 @@ __Facts:__
 | `bacnet.device.instance` | Device instance (also accepts IP:Port address of device) | int |
 | `bacnet.obj.type` | Type of the [object](#objects) to be written to | int or string |
 | `bacnet.obj.instance` | The [instance number](#objects) of the object-type specified | int |
-| `bacnet.obj.property` | The [property](#properties) of the object to be written to | int |
+| `bacnet.obj.property` | The [property](#properties) of the object to be written to | int or string |
 | `bacnet.write.priority` | The precedence of the write (lower is higher) | int |
 | `bacnet.write.index` | `-1` write the entire property, `1..N` write to the specified index | int |
-| `bacnet.write.tag` | The [type of value](#bacnet-fact-values) to be written | int |
+| `bacnet.write.tag` | The [type of value](#bacnet-fact-values) to be written | int or string |
 | `bacnet.write.value` | The write value itself | string |
 
 The value (`#{bacnet.write.value}`) is an ASCII representation of some type of
